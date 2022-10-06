@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+  import { reactive } from 'vue';
 
   const items = [
     { name: 'Shoes', cost: 30},
