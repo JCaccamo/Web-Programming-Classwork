@@ -2,6 +2,7 @@
     import { ref } from 'vue';
     import { RouterLink } from 'vue-router';
     import LoginBadge from './LoginBadge.vue';
+
     let isActive = ref(false);
 </script>
 
@@ -9,9 +10,9 @@
      <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand">
-                <a class="navbar-item" href="https://bulma.io">
-                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-                </a>
+                <div class="navbar-item">
+                    <h1 class="title is-5">Web Programming</h1>
+                </div>
                 <a :class="{ 'is-active': isActive }" @click="isActive = !isActive" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -23,8 +24,8 @@
                     <router-link to="/" class="navbar-item">
                         Home
                     </router-link>
-                    <router-link to="/store" class="navbar-item">
-                        Store
+                    <router-link to="/products" class="navbar-item">
+                        Products
                     </router-link>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">
