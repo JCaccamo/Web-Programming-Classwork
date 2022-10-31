@@ -27,18 +27,23 @@
         border-left: 1px solid #000;
         z-index: 100;
         transition: right 0.5s ease-in-out;
+        box-shadow: rgb(0 0 0 / 25%) -14px -0 8px;
+        overflow-y: auto;
     }
     .fly-out.is-open {
         right: 0;
     }
     .fly-out-body {
         height: 100%;
-        background-color: #fff;
-        margin: .5em;
+        background-color: #ffffffaa;
+        margin: 1em;
         padding: 1em;
     }
     .fly-out-header {
         padding: 1em;
         background-color: aquamarine;
+    }
+    .hero {
+        background-color: #1267a4aa;
     }
 </style>
