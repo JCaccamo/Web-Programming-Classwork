@@ -14,16 +14,16 @@
 </script>
 
 <template>
-    <FlyoutPanel :is-open="isOpen" >
-            <template #header>
-                <h3 class="title is-3">
-                    Cart 
-                    <small class="subtitle is-6">({{ cart.length }} items)</small>
-                </h3>
-                <h4 class="subtitle is-6">
-                    <b>Subtotal:</b> ${{ subtotal }}
-                </h4>
-            </template>
+    <FlyoutPanel :is-open="isOpen">
+        <template #header>
+            <h3 class="title is-3">
+                Cart 
+                <small class="subtitle is-6">({{ cart.length }} items)</small>
+            </h3>
+            <h4 class="subtitle is-6">
+                <b>Subtotal:</b> ${{ subtotal }}
+            </h4>
+        </template>
         <div>
             <div class="fly-out-body">
                 <div v-if="!cart">
@@ -31,22 +31,20 @@
                 </div>
                 <div v-else>
                     <div v-for="item in cart" :key="item.product.id" class="box">
-
-                            <figure class="image is-96x96">
-                                <img :src="item.product.thumbnail" :alt="item.product.title" />
-                            </figure>
-                            <div class="">
-                                <b>{{ item.product.title }}</b> 
-                                <div class="price">${{ item.product.price }}</div> 
-                                <div>
-                                    x 
-                                    <select :value="item.quantity" class="quantity" @input="(e) => updateProductQuantity(item.product.id,  +(e.target as HTMLSelectElement).value)">
-                                        <option value="0">0 (delete)</option>
-                                        <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
-                                    </select>
-                                    = ${{ item.quantity * item.product.price}}</div>
-                                
-                            </div>
+                        <figure class="image is-96x96">
+                            <img :src="item.product.thumbnail" :alt="item.product.title" />
+                        </figure>
+                        <div class="">
+                            <b>{{ item.product.title }}</b> 
+                            <div class="price">${{ item.product.price }}</div> 
+                            <div>
+                                x 
+                                <select :value="item.quantity" class="quantity" @input="(e) => updateProductQuantity(item.product.id,  +(e.target as HTMLSelectElement).value)">
+                                    <option value="0">0 (delete)</option>
+                                    <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
+                                </select>
+                                = ${{ item.quantity * item.product.price}}</div>
+                        </div>
                     </div>
                 </div>
             </div>

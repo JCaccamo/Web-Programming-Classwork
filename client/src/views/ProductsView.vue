@@ -12,15 +12,15 @@
 
 <template>
     <div class="section">
-        <div class="control ">
-            <input class="input" type="text" placeholder="Search" v-model="search"  />
+        <div class="control">
+            <input class="input" type="text" placeholder="Search" v-model="search"/>
         </div>
         <div class="products">
             <RouterLink class="product" v-for="product in products" 
                         :key="product.id" :to="`/product/${product.id}`"
                         v-show="product.title.toLowerCase().includes(search.toLowerCase())">
                 <div class="product-image">
-                    <img :src="product.thumbnail" :alt="product.title" />
+                    <img :src="product.thumbnail" :alt="product.title"/>
                 </div>
                 <div class="product-info">
                     <b>{{ product.title }}</b>
@@ -61,6 +61,9 @@
     }
     .product-info {
         font-size: small;
+    }
+    .add {
+        float: right;
     }
     .price {
         display: flex;
