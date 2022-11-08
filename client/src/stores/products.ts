@@ -1,15 +1,16 @@
-import data from '../data/products.json';
+import myFetch from "@/services/myFetch";
 
 export function getProducts() {
-    return data.products as Product[];
+  return myFetch<ProductDocument>('products')
+        .then( x=> x.products);
 }
 
 export function getProduct(id: number) {
-    return getProducts().find( (product) => product.id === id );
+  return myFetch<Product>(`products/${id}`)
 }
 
 export function deleteProduct(id: number) {
-    data.products = data.products.filter( (product) => product.id !== id );
+  data.products = data.products.filter( (product) => product.id !== id );
 }
 
 export interface ProductDocument {
@@ -17,9 +18,9 @@ export interface ProductDocument {
     total: number
     skip: number
     limit: number
-}
+  }
   
-export interface Product {
+  export interface Product {
     id: number
     title: string
     description: string
@@ -31,4 +32,4 @@ export interface Product {
     category: string
     thumbnail: string
     images: string[]
-}
+  }
