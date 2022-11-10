@@ -1,7 +1,8 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
 const productsController = require('./controllers/products');
+const cartController = require('./controllers/cart');
 
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
@@ -17,12 +18,13 @@ app.use('/', express.static('./client/dist'));
 
 app
 .get('/', (req, res) => {
-    res.status(200).send('Happy Sweet New Year');
+    res.status(200).send('Happy New Year');
 })
 .get('/error', (req, res) => {
     sss.PORT();
 })
 .use('/api/v1/products', productsController)
+.use('/api/v1/cart', cartController)
 
 app.get('*', (req, res) => {
     res.sendFile('index.html', {root: './client/dist'});
