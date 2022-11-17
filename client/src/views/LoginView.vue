@@ -8,7 +8,7 @@
 </script>
 
 <template>
-    <div>
+    <div class="section">
         <form class="box" @submit.prevent="login(name, email, password)">
             <div class="field">
                 <label class="label">Name</label>

@@ -9,6 +9,7 @@
         //isActive = false;
     }
     function checkout() {
+        // empty function
     }
     const subtotal = computed(() => cart.reduce((total, item) => total + item.quantity * item.product.price, 0));
 </script>
@@ -56,5 +57,21 @@
 </template>
 
 <style scoped>
-
+    .box {
+        text-align: center;
+    }
+    .image {    /* note that this is the image class not the image tag */
+        border: 1px solid #000;
+        margin: auto;
+        height: 100%;
+    }
+    .price {
+        font-size: 1.5em;
+    }
+    .quantity {
+        width: 40px;
+        border-radius: 10px;
+        border: 0;
+        background-color: aliceblue;
+    }
 </style>
