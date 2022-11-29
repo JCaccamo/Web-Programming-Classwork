@@ -2,7 +2,7 @@
   "name": "web-programming-classwork",
   "version": "1.0.0",
   "description": "![Picture](Picture.jpg)",
-  "author": "",
+  "author": "Jason Caccamo",
   "license": "ISC",
   "scripts": {
     "build": "npm i -ws && npm run build -ws",
@@ -13,6 +13,8 @@
     "client"
   ],
   "dependencies": {
+    "mongodb": "^4.12.1",
+    "dotenv": "^16.0.3",
     "express": "^4.18.1"
   },
   "devDependencies": {
