@@ -9,6 +9,7 @@ http://127.0.0.1:3003/api/v1/products/6
 ###
 POST http://127.0.0.1:3003/api/v1/products
 Content-Type: application/json
+
 {
     "id": 613,
     "title": "Menorah",
@@ -31,6 +32,7 @@ Content-Type: application/json
 ###
 PATCH http://127.0.0.1:3003/api/v1/products/638d2dc25faba5c868e3498b
 Content-Type: application/json
+
 {
     "id": 614,
     "title": "Golden Menorah",
@@ -47,6 +49,7 @@ http://127.0.0.1:3003/api/v1/cart/caccamoj1@newpaltz.edu
 ###
 POST http://127.0.0.1:3003/api/v1/cart/caccamoj1@newpaltz.edu
 Content-Type: application/json
+
 {
     "quantity": 1,
     "productId": 9
