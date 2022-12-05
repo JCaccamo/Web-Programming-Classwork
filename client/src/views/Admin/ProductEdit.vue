@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import session, { isLoading, setError } from "@/stores/session";
+    import session, { api, isLoading, setError } from "@/stores/session";
     import { ref } from "vue";
     import { useRoute, useRouter } from "vue-router";
     import { addProduct, getProduct, updateProduct, type Product } from "@/stores/products";
@@ -9,15 +9,17 @@
     const isNew = ref(route.params.id == 'new')
     if(!isNew.value){
         getProduct(route.params.id as string).then(x => {
-            if(x){
+            if(x) {
                 product.value = x            
-            }else{
+            } else {
                 isNew.value = true;
             }
         });        
     }
-    const brands = ['Apple', 'Microsoft']
-    const categories = ['Phone', 'Watch']
+    const brands = ref(['Apple', 'Microsoft']);
+    const categories = ref(['Phone', 'Watch']);
+    api<string[]>('products/brands').then(x=> brands.value = x);
+    api<string[]>('products/categories').then(x=> categories.value = x);
     async function save(){
         try {
             if(isNew.value) {
@@ -88,7 +90,7 @@
                                 <div class="control">
                                     <div class="select is-fullwidth">
                                         <select  v-model="product.brand">
-                                            <option value="">-- Please Select a Brand --</option>
+                                            <option :value="undefined">-- Please Select a Brand --</option>
                                             <option v-for="b in brands" :key="b">{{b}}</option>
                                         </select>
                                     </div>
@@ -105,7 +107,7 @@
                                 <div class="control">
                                     <div class="select is-fullwidth">
                                         <select  v-model="product.category">
-                                            <option value="">-- Please Select a Category --</option>
+                                            <option :value="undefined">-- Please Select a Category --</option>
                                             <option v-for="b in categories" :key="b">{{b}}</option>
                                         </select>
                                     </div>
