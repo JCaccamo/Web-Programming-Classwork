@@ -5,7 +5,7 @@
     import { getProduct, type Product } from "../stores/products";
     const route = useRoute();
     const product = ref(null as Product | null);
-    getProduct(+route.params.id).then(x => {
+    getProduct(route.params.id).then(x => {
         product.value = x;
         console.log('The fetch returned');
     });
