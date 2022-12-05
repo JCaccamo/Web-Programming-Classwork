@@ -5,7 +5,7 @@ export function getProducts() {
 }
 
 export function getProduct(id: number) {
-  return api<Product>(`products/${id}`)
+  return api<Product>(`products/${id}`);
 }
 
 export interface ListEnvelope<T> {
@@ -16,7 +16,7 @@ export interface ListEnvelope<T> {
 }
 
 export interface Product {
-  id: number
+  _id: string
   title: string
   description: string
   price: number
