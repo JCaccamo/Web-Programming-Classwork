@@ -7,6 +7,7 @@ const session = reactive( {
     error: null as string | null,
     messages: [] as Message[],
 });
+
 export default session;
 
 export function setError(error: string | null) {
@@ -32,6 +33,7 @@ export async function api<T>(url: string, data: any = null, method?: string ){
     return {} as T;
 }
 
+
 export function login(name: string, email: string, password: string) {
     session.user = {
         name,
@@ -48,6 +50,7 @@ export interface User {
     name: string;
     email: string;
     password?: string;
+    picture?: string;
 }
 
 export interface Message {

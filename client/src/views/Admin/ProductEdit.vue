@@ -3,26 +3,31 @@
     import { ref, watch } from "vue";
     import { useRoute, useRouter } from "vue-router";
     import { addProduct, getProduct, updateProduct, type Product } from "@/stores/products";
+
     const route = useRoute();
     const router = useRouter();
+    
     const product = ref({} as Product);
     const isNew = ref(route.params.id == 'new')
+
     if(!isNew.value){
         getProduct(route.params.id as string).then(x => {
-            if(x) {
+            if (x) {
                 product.value = x            
             } else {
                 isNew.value = true;
             }
         });        
     }
+
     const brands = ref(['Apple', 'Microsoft']);
     const categories = ref(['Phone', 'Watch']);
     api<string[]>('products/brands').then(x=> brands.value = x);
     api<string[]>('products/categories').then(x=> categories.value = x);
+
     async function save(){
         try {
-            if(isNew.value) {
+            if (isNew.value) {
                 const data = await addProduct(product.value);
                 session.messages.push({ type: "success", text: `Successfully inserted ${data.title}`})
             } else {
@@ -34,19 +39,22 @@
             //setError(error as string); being set in the api function
         }
     }
+
     async function cancel() {
         await router.push({ name: 'admin_products' });    
     }
-    const isTenorSearchOpen = ref(false);
-    const tenorSearch = ref('');
-    const tenorResults = ref([] as any[]);
-    watch(tenorSearch, async () => {
-        if(tenorSearch.value.length > 2){
+
+   const isTenorSearchOpen = ref(false);
+   const tenorSearch = ref('');
+   const tenorResults = ref([] as any[]);
+
+   watch(tenorSearch, async () => {
+       if (tenorSearch.value.length > 2) {
         const data = await fetch(`https://tenor.googleapis.com/v2/search?q=${tenorSearch.value}&key=${import.meta.env.VITE_TENOR_API_KEY}&limit=8`)
                             .then(x=> x.json())
         console.log({ data });
         tenorResults.value = data.results;
-        }
+       }
     });
 </script>
 
@@ -59,6 +67,7 @@
                         {{ isNew ? 'New' : 'Edit' }} Product 
                     </p>
                 </header>
+
                 <section class="modal-card-body">
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
@@ -75,6 +84,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">Price</label>
@@ -92,6 +102,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">Brand</label>
@@ -109,6 +120,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">Category</label>
@@ -126,6 +138,8 @@
                             </div>
                         </div>
                     </div>
+
+                    
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">Thumbnail</label>
@@ -133,7 +147,7 @@
                         <div class="field-body">
                             <div class="field  has-addons">
                                 <div class="control is-expanded">
-                                    <input class="input" type="text" placeholder="Complete URL">
+                                    <input class="input" type="text" placeholder="Complete URL" v-model="product.thumbnail">
                                 </div>
                                 <p class="control">
                                     <a class="button is-warning" @click.prevent="(isTenorSearchOpen = !isTenorSearchOpen)">
@@ -143,13 +157,18 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="box" v-show="isTenorSearchOpen">
                         <h3>Tenor Search</h3>
                         <input class="input" type="text" placeholder="Complete URL" v-model="tenorSearch" />
-                        <div class="image tenor-gif" v-for="tenorGif in tenorResults" :key="tenorGif.id" @click.prevent="product.thumbnail = tenorGif.media_formats.mediumgif.url" >
-                            <img :src="tenorGif.media_formats.tinygif.url" />
+                        <div class="tenor-results">
+                            <div class="image tenor-gif" v-for="tenorGif in tenorResults" :key="tenorGif.id" 
+                                @click.prevent="product.thumbnail = tenorGif.media_formats.mediumgif.url; isTenorSearchOpen = false" >
+                                <img :src="tenorGif.media_formats.tinygif.url" />
+                            </div>                            
                         </div>
                     </div>
+                    
                     <div class="field is-horizontal">
                         <div class="field-label is-normal">
                             <label class="label">Description</label>
@@ -169,7 +188,7 @@
                 </footer>
             </form>
         </div>
-        
+
         <div class="column card">
             <div class="card-content">
                 <h3 class="title">{{ product.title }}</h3>
@@ -192,9 +211,22 @@
     .modal-card {
         width: 100%;
     }
+    .tenor-results {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
     .tenor-gif {
-        display: inline-block;
-        margin: 0 10px 10px 0;
+        display: flex;
+        align-items: center;
+        border: 1px solid blueviolet;
+        margin: 10px;
+        padding: 5px;
+        border-radius: 10px;
         max-width: 220px;
+        cursor: pointer;
+    }
+    .tenor-gif:hover {
+        border: 3px solid green;
     }
 </style>
