@@ -19,7 +19,7 @@
 </script>
 
 <template>
-    <section>
+    <div class="section">
         <RouterLink class="button is-success"  :to="`./product/new`" style="float: right">
             <span class="icon is-small">
                 <i class="fas fa-plus"></i>
@@ -76,13 +76,10 @@
                 </tr>
             </tbody>
         </table>
-    </section>
+    </div>
 </template>
 
 <style scoped>
-    section {
-        margin-top: 10px;;
-    }
     .product-thumbnail {
         max-width: 75px;
         max-height: 75px;

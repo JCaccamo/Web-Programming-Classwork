@@ -4,6 +4,7 @@
     import Cart from './Cart.vue';
     import LoginBadge from './LoginBadge.vue';
     import MessageList from './MessageList.vue';
+
     const isActive = ref(false);
     const isCartOpen = ref(false);
 </script>
@@ -24,12 +25,13 @@
             </div>
             <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': isActive }">
                 <div class="navbar-start">
-                    <router-link to="/" class="navbar-item">Home</router-link>
-                    <router-link to="/products" class="navbar-item">Products</router-link>
+                    <RouterLink to="/" class="navbar-item">Home</RouterLink>
+                    <RouterLink to="/products" class="navbar-item">Products</RouterLink>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <a class="navbar-link">More</a>
                         <div class="navbar-dropdown">
-                            <router-link to="/about" class="navbar-item">About</router-link>
+                            <RouterLink to="/admin/products" class="navbar-item">Admin</RouterLink>
+                            <RouterLink to="/about" class="navbar-item">About</RouterLink>
                         </div>
                     </div>
                 </div>
@@ -39,7 +41,7 @@
                         <button class="button is-primary" @click="isCartOpen = !isCartOpen">Cart</button>
                     </div>
                     <div class="navbar-item">
-                        <login-badge></login-badge>
+                        <LoginBadge />
                     </div>
                 </div>
             </div>
@@ -48,6 +50,9 @@
 </template>
 
 <style>
+    nav {
+        padding: 0 135px 0 135px;
+    }
     .router-link-active {
         border-bottom: #00AA00 5px solid;
     }

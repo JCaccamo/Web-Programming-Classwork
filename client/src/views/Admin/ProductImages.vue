@@ -13,9 +13,11 @@
 </script>
 
 <template>
-    <h3 class="title is-3">Images for {{ product.title }}</h3>
-    <div v-for="image in product.images" :key="image" class="image">
-        <img :src="image" />
+    <div class="section">
+        <h3 class="title is-3">Images for {{ product.title }}</h3>
+        <div v-for="image in product.images" :key="image" class="image">
+            <img :src="image" />
+        </div>
     </div>
 </template>
 
