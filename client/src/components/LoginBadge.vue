@@ -35,12 +35,12 @@
     </div>
     <div v-else class="profile">
         <img :src="session.user.picture" />
-        <span>
+        <span class="user-info">
             {{session.user.name}} ({{session.user.email}})            
         </span>
-        (<a @click="logout()">
+        <a class="button is-light" @click="logout()">
             Log out
-        </a>)
+        </a>
     </div>
 </template>
 
@@ -53,5 +53,8 @@
         border-radius: 50%;
         margin-right: 10px;
         margin-left: 10px;
+    }
+    .user-info {
+        margin-right: 20px;
     }
 </style>
