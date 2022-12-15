@@ -3,6 +3,7 @@
     import { ref, watch } from "vue";
     import { useRoute, useRouter } from "vue-router";
     import { addProduct, getProduct, updateProduct, type Product } from "@/stores/products";
+    import { createDescription } from "@/features/gpt/gpt";
 
     const route = useRoute();
     const router = useRouter();
@@ -22,8 +23,15 @@
 
     const brands = ref(['Apple', 'Microsoft']);
     const categories = ref(['Phone', 'Watch']);
+
     api<string[]>('products/brands').then(x=> brands.value = x);
     api<string[]>('products/categories').then(x=> categories.value = x);
+
+    async function getGptDescription() {
+        const description = await createDescription(product.value.title);
+        product.value.description = description;
+        return description;
+    }
 
     async function save(){
         try {
@@ -172,6 +180,7 @@
                         <div class="field is-horizontal">
                             <div class="field-label is-normal">
                                 <label class="label">Description</label>
+                                <button class="button is-warning is-small" @click.prevent="getGptDescription" >Generate</button>
                             </div>
                             <div class="field-body">
                                 <div class="field">
