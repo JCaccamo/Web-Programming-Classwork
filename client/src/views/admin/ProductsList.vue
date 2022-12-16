@@ -1,8 +1,9 @@
 <script setup lang="ts">
     import { computed, reactive, ref, watch } from "vue";
     import { RouterLink } from "vue-router";
-    import { deleteProduct, getProducts, type Product } from "@/stores/products";
-    import session, { setError } from "@/stores/session";
+    import { deleteProduct, getProducts, type ListEnvelope, type Product } from "@/stores/products";
+    import session, { api, setError } from "@/stores/session";
+    import vSelect from 'vue-select';
     const products = ref([] as Product[]);
     getProducts().then( x=> products.value = x.products);
     async function deleteProduct2(product: Product, index: number){
@@ -16,11 +17,17 @@
             }
         }
     }
+    const options = ref([] as any[]);
+    async function fetchOptions (search: string) {
+        const result = await api<ListEnvelope<Product>>(`products/search/${search}`)
+        options.value = result.products;
+    }
 </script>
 
 <template>
     <div class="section">
-        <RouterLink class="button is-success"  :to="`./product/new`" style="float: right">
+        <v-select :options="options" @search="fetchOptions" label="title" placeholder="Search for a product"></v-select>
+        <RouterLink class="button is-success" :to="`./product/new`" style="float: right">
             <span class="icon is-small">
                 <i class="fas fa-plus"></i>
             </span>
@@ -56,12 +63,12 @@
                     </td>
                     <td>
                         <div class="buttons has-addons is-small">
-                            <RouterLink class="button"  :to="`../product/${p._id}`" target="_blank" title="View as a user would see it" >
+                            <RouterLink class="button" :to="`../product/${p._id}`" target="_blank" title="View as a user would see it" >
                                 <span class="icon is-small">
                                     <i class="fas fa-eye"></i>
                                 </span>
                             </RouterLink>
-                            <RouterLink class="button"  :to="`./product/${p._id}`">
+                            <RouterLink class="button" :to="`./product/${p._id}`">
                                 <span class="icon is-small">
                                     <i class="fas fa-edit"></i>
                                 </span>
